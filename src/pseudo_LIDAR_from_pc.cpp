@@ -12,7 +12,6 @@
 #include <opencv2/opencv.hpp>
 
 #define PC_TOPIC "/zed/zed_node/point_cloud/cloud_registered"
-// #define PC_TOPIC "/points_raw"
 #define CONFIDENCE_MAP_TOPIC "/zed/zed_node/confidence/confidence_map"
 #define PSEUDO_LIDAR_TOPIC "/pseudo_LiDAR"
 
@@ -36,45 +35,7 @@ private:
     sensor_msgs::msg::PointCloud2 tmp_pc;
     sensor_msgs::msg::Image cm;
     cv::Mat cm_img;
-    // const sensor_msgs::msg::Image::SharedPtr& cm;
-    // void update_offset_for_subsequent_fields(sensor_msgs::msg::PointCloud2 &pc, int field_size, int start_index)
-    // {
-    //     for (size_t i = start_index; i < pc.fields.size(); i++)
-    //     {
-    //         pc.fields[i].offset += field_size;
-    //     }
-    // }
 
-    // int get_offset(sensor_msgs::msg::PointCloud2 &pc, std::string field_name)
-    // {
-    //     for (const auto &field : pc.fields)
-    //     {
-    //         if (field.name == field_name)
-    //         {
-    //             return field.offset;
-    //         }
-    //     }
-
-    //     std::cerr << "Field not found" << std::endl;
-    //     return -1;
-    // }
-    // void print_intensity_field(sensor_msgs::msg::PointCloud2 &pc)
-    // {
-    //     for (uint32_t i = 0; i < pc.width * pc.height; i++)
-    //     {
-    //         auto offset = get_offset(pc, "intensity");
-    //         float intensity;
-    //         std::memcpy(&intensity, &pc.data[i * pc.point_step + offset], sizeof(intensity));
-    //         std::cout << "intensity: " << intensity << std::endl;
-    //     }
-    // }
-
-    // void set_intensity(sensor_msgs::msg::PointCloud2 &pc, uint32_t point_index, _Float32 intensity)
-    // {
-
-    //     auto offset = get_offset(pc, "intensity");
-    //     std::memcpy(&pc.data[point_index * pc.point_step + offset], &intensity, sizeof(intensity));
-    // }
 
     void set_all_intensities(pcl::PointCloud<pcl::PointXYZI> &pc, cv::Mat &cm_img)
     {
@@ -111,12 +72,10 @@ private:
     void cm_callback(const sensor_msgs::msg::Image::SharedPtr msg)
     {
         RCLCPP_INFO(this->get_logger(), "cm: I heard: [%s]", msg->header.frame_id.c_str());
-        // cm = *msg;
 
         cv_bridge::CvImagePtr cv_ptr = cv_bridge::toCvCopy(msg, msg.get()->encoding);
         cm_img = cv_ptr->image;
         cm_img.convertTo(cm_img, CV_8U);
-        // cv::imwrite("saved_image.jpg", cv_ptr->image);
     }
 
     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr cm_subscription_;
