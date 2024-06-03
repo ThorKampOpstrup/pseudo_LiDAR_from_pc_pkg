@@ -4,7 +4,9 @@ This is a ROS2 package that merges stereo point cloud with a confidence mapped p
 1. Clone this repository into your ROS2 workspace
 <!-- white git clone command -->
 ```bash
+cd <ros2 workspace>/src
 git clone <ssh>
+cd ..
 ```
 
 2. Build the package using colcon build
