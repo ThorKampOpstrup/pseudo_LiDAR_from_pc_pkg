@@ -43,4 +43,6 @@ The resulting confidence mapped point cloud can be sen below.
 
 The confidence mapped point cloud aims to imitate a LIDAR point cloud by assigning a confidence value the intensity channel of each point.
 
-The confidence map and stereo pair point cloud are assumed to be published simultaneously.
+<!-- make line bold -->
+**The confidence map and stereo pair point cloud are assumed to be published simultaneously.**
+
